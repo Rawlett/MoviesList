@@ -6,8 +6,7 @@ export const environment = {
   production: false,
   apiKey: '&apikey=a54a1a42',
   apiFilm: 'https://omdbapi.com/?t=',
-  apiSearch: 'https://omdbapi.com/?s=',
-  film: ""
+  apiSearch: 'https://omdbapi.com/?s='
 };
 
 /*
