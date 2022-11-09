@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { MoviesService } from 'src/app/service/movies.service';
-import { environment } from 'src/environments/environment';
+import {MovieInterface} from "../../interfaces/movies.interface";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-list',
@@ -11,12 +10,11 @@ import { environment } from 'src/environments/environment';
 })
 export class ListComponent implements OnInit{
 
-  films: any;
-  cards: any;
-  busqueda: string = "";
+  cards: MovieInterface[] = [];
+  busqueda: string = '';
   breakpoint: number = 0;
 
-  constructor(public moviesService: MoviesService, private breakpointObserver: BreakpointObserver) {}
+  constructor(private moviesService: MoviesService, private router: Router) {}
 
   ngOnInit() {
     this.breakpoint = (window.innerWidth <= 425) ? 1 : (window.innerWidth <= 768) ? 2 : (window.innerWidth <= 1024) ? 3 : 4;
@@ -26,20 +24,14 @@ export class ListComponent implements OnInit{
     this.breakpoint = (event.target.innerWidth <= 425) ? 1 : (event.target.innerWidth <= 768) ? 2 : (event.target.innerWidth <= 1024) ? 3 : 4;
   }
 
-  getMovies(){
-    this.moviesService.getMoviesWithSearch(this.busqueda).subscribe(data => {
-      this.films = data.Search;
-      //console.log(this.films);
-      /** Based on the screen size, switch from standard to one column per row */
-      this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-        map(() => {
-          return this.films;
-        })
-      );
+  getMovies(search: string){
+    this.moviesService.getMoviesWithSearch(search).subscribe((movies: MovieInterface[]) => {
+      console.log('DATA:', movies)
+      this.cards = movies;
     });
   }
 
-  setFilm(film: string){
-    environment.film = film;
+  goMovieDetail(movie: MovieInterface){
+    this.router.navigate(['detail/' + movie.imdbID]);
   }
 }
