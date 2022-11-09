@@ -1,0 +1,18 @@
+<div class="grid-container">
+    <div class="row">
+        <mat-form-field class="example-form-field" appearance="fill">
+            <input matInput type="search" placeholder="Search..." [(ngModel)]="busqueda" (ngModelChange)="getMovies()">
+        </mat-form-field>
+    </div>
+    <mat-grid-list [cols]="breakpoint" rowHeight="400px" (window:resize)="onResize($event)">
+        <mat-grid-tile *ngFor="let card of cards | async">
+            <mat-card class="dashboard-card" (click)="setFilm(card.Title)" [routerLink]="['/detail']">
+                <mat-card-header>
+                    <mat-card-title>{{card.Title}}</mat-card-title>
+                    <mat-card-subtitle>{{card.Year}}, {{card.Type}}</mat-card-subtitle>
+                </mat-card-header>
+                <img mat-card-xl-image src={{card.Poster}} alt="Poster">
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
