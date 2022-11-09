@@ -1,38 +1,38 @@
-<div class="container">
-    <mat-grid-list [cols]="breakpoint" rowHeight="3:2" (window:resize)="onResize($event)">
-        <mat-grid-tile></mat-grid-tile>
-        <mat-grid-tile>
-            <img src={{film.Poster}} alt="">
-        </mat-grid-tile>
-        <mat-grid-tile>
+<div *ngIf="detail" class="container">
+    <mat-grid-list [cols]="breakpoint" rowHeight="150px">
+        <mat-grid-tile [colspan]="1" [rowspan]="1">
             <mat-card>
-                <mat-card-title>{{film.Title}}</mat-card-title>
+                <mat-card-title>{{detail.Title}}</mat-card-title>
                 <mat-card-subtitle>
-                    <p><span class="rated">{{film.Rated}}</span> {{film.Year}}, {{genreToString()}}, {{film.Runtime}}</p>
+                    <p><span class="rated">{{detail.Rated}}</span> {{detail.Year}}, {{genreToString()}}, {{detail.Runtime}}</p>
                 </mat-card-subtitle>
                 <mat-card-content>
                     <h1>
-                        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="star" id="star"></mat-icon>
-                        {{film.imdbRating}}<span class="rating">/10</span>
+                        <mat-icon aria-hidden="false" fontIcon="star" class="star"></mat-icon>
+                        {{detail.imdbRating}}<span class="rating">/10</span>
                     </h1>
                 </mat-card-content>
             </mat-card>
         </mat-grid-tile>
+        <mat-grid-tile [colspan]="2" [rowspan]="2">
+            <div class="info">
+                <mat-list role="list">
+                    <mat-list-item role="listitem">{{detail.Plot}}</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item role="listitem"><span class="title">Actors</span>{{detail.Actors}}</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item role="listitem"><span class="title">Director</span>{{detail.Director}}</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item role="listitem"><span class="title">Writer</span>{{detail.Writer}}</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item role="listitem"><span class="title">Genre</span>{{detail.Genre}}</mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item role="listitem"><span class="title">Awards</span>{{detail.Awards}}</mat-list-item>
+                </mat-list>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="1" [rowspan]="2">
+            <img src={{detail.Poster}} alt="">
+        </mat-grid-tile>
     </mat-grid-list>
-    <h1 class="textLine">Movie Info</h1>
-    <div class="info">
-        <mat-list role="list">
-            <mat-list-item role="listitem">{{film.Plot}}</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item role="listitem"><span class="title">Actors</span>{{film.Actors}}</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item role="listitem"><span class="title">Director</span>{{film.Director}}</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item role="listitem"><span class="title">Writer</span>{{film.Writer}}</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item role="listitem"><span class="title">Genre</span>{{film.Genre}}</mat-list-item>
-            <mat-divider></mat-divider>
-            <mat-list-item role="listitem"><span class="title">Awards</span>{{film.Awards}}</mat-list-item>
-        </mat-list>
-    </div>
 </div>

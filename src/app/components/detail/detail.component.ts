@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { MoviesService } from 'src/app/service/movies.service';
+import { MovieDetailInterface } from "../../interfaces/movie.interface";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-detail',
@@ -9,18 +10,16 @@ import { MoviesService } from 'src/app/service/movies.service';
 })
 export class DetailComponent implements OnInit {
 
-  film: any;
+  detail: MovieDetailInterface | undefined;
   breakpoint: number = 0;
-  
 
-  constructor(public moviesService: MoviesService) { }
+  constructor(private moviesService: MoviesService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.breakpoint = (window.innerWidth <= 425) ? 1 : (window.innerWidth <= 768) ? 2 : 4;
+    this.breakpoint = (window.innerWidth <= 425) ? 1 : (window.innerWidth <= 768) ? 2 : 3;
 
-    this.moviesService.getMovieWhithCard(environment.film).subscribe(data => {
-      this.film = data;
-      console.log(this.film);
+    this.moviesService.getMovieByID(this.route.snapshot.params['id']).subscribe((movie: MovieDetailInterface) => {
+      this.detail = movie;
     });
   }
 
@@ -29,6 +28,6 @@ export class DetailComponent implements OnInit {
   }
 
   genreToString() {
-    return this.film.Genre.replace(/, /g, '/');
+    return this.detail?.Genre.replace(/, /g, '/');
   }
 }
