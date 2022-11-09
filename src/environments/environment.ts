@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiKey: '&apikey=a54a1a42',
-  apiFilm: 'https://omdbapi.com/?t=',
+  apiFilm: 'https://omdbapi.com/?i=',
   apiSearch: 'https://omdbapi.com/?s='
 };
 
